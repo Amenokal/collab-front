@@ -7,22 +7,29 @@
     </p>
     <form class="form-login">
         <label>Email</label>
-      <input type="email" name="email" />
+      <input type="email" v-model="email" />
           <label>Mot de passe</label>
-      <input type="password" name="password" />
-      <button type="submit" class="btn-other" >CONNEXION</button>
+      <input type="password" v-model="password" />
+      <button @click.prevent="fetchData()" class="btn-other" >CONNEXION</button>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "LoginPage",
+  data(){
+    return {
+        email: '',
+        password: ''
+    }
+  },
   methods: {
     fetchData() {
-        axios.post({email: password})
-        .then(()=> {
-
+        axios.post('http://localhost:3000/login', {email: this.email, password: this.password })
+        .then((res)=> {
+            console.log(res);
         })
         .catch((err)=> {
             console.log(err)
