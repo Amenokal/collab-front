@@ -1,42 +1,68 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div class="home-box">
+    <h1>Bienvenue sur l'intranet</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      La plate-forme de l'entreprise qui vous permet de retrouver vos
+      collaborateurs.
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <h1>Avez vous dit bonjour à:</h1>
+    <div>
+      <div class="box-home">
+        <div>
+          <img :src=photo />
+        </div>
+        <div>
+          <h1>{{ firstname }} ({{age}}) ans</h1>
+          <p>{{ city }}</p>
+          <p>{{ email }}</p>
+          <p>{{ telephone }}</p>
+        </div>
+      </div>
+    </div>
+    <button class="btn-other" @click="this.fetchData()">DIRE BONJOUR A QUELQU'UN D'AUTRE</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: "HomePage",
+  data() {
+    return {
+      photo : 'https://randomuser.me/api/portraits/men/40.jpg',
+      urlAxios: 'k;',
+      gender: "",
+      firstname: "Quentin",
+      city: "Paris, France",
+      email: "quentin@gmail.com",
+      telephone: "080829370923",
+      birthday: "S",
+      age: "36",
+    };
+  },
+  methods: {
+    fetchData() {
+      axios.get('http://localhost:3000/user/random')
+      .then((res)=> {
+        console.log(res);
+        this.gender = res.data.gender
+        this.firstname = res.data.firstname
+        this.city = res.data.city
+        this.email = res.data.email
+        this.telephone = res.data.phone
+        this.photo = res.data.photo
+        
+        const date = new Date(res.data.birthdate);
+        const currentYear = new Date().getFullYear();
+        const numberOfYears = currentYear - date.getFullYear();
+        this.age = numberOfYears
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
