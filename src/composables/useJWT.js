@@ -10,7 +10,6 @@ export const useJWT = () => {
 
   function decodeToken() {
     const token = getToken()
-    console.log(token)
     if(token) {
       const tok = jwt_decode(token)
       return tok

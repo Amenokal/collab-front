@@ -1,43 +1,77 @@
 <template>
-  <h1>{{ title }}</h1>
-  <form>
-    <label>Civilité</label>
-    <input type="text" v-model="form.gender"/>
+  <div class="banner">
+    <h1>{{ title }}</h1>
+  </div>
 
-    <label>Catégorie</label>
-    <input type="text" v-model="form.category"/>
+  <form v-if="props.user">
+    <div class="input-wrapper">
+      <label>Civilité</label>
+      <select id="gender-select" v-model="form.gender">
+        <option v-for="option in genderOptions" :key="option.id" :value="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
 
-    <label>Nom</label>
-    <input type="text" v-model="form.lastname"/>
+    <div class="input-wrapper">
+      <label>Catégorie</label>
+      <select id="category-select" v-model="form.category">
+        <option v-for="option in categoryOptions" :key="option.id" :value="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
 
-    <label>Prénom</label>
-    <input type="text" v-model="form.firstname"/>
+    <div class="input-wrapper">
+      <label>Nom</label>
+      <input type="text" v-model="form.lastname" />
+    </div>
 
-    <label>Email</label>
-    <input type="text" v-model="form.email"/>
+    <div class="input-wrapper">
+      <label>Prénom</label>
+      <input type="text" v-model="form.firstname" />
+    </div>
 
-    <label>Mot de passe</label>
-    <input type="text" v-model="form.password"/>
+    <div class="input-wrapper">
+      <label>Email</label>
+      <input type="text" v-model="form.email" />
+    </div>
 
-    <label>Confirmation</label>
-    <input type="text" v-model="form.confirm"/>
+    <!-- <div class="input-wrapper">
+      <label>Mot de passe</label>
+      <input type="text" v-model="form.password" />
+    </div>
 
-    <label>Téléphone</label>
-    <input type="text" v-model="form.phone"/>
+    <div class="input-wrapper">
+      <label>Confirmation</label>
+      <input type="text" v-model="form.confirm" />
+    </div> -->
 
-    <label>Date de naissance</label>
-    <input type="text" v-model="form.birthdate"/>
+    <div class="input-wrapper">
+      <label>Téléphone</label>
+      <input type="text" v-model="form.phone" />
+    </div>
 
-    <label>Ville</label>
-    <input type="text" v-model="form.city"/>
+    <div class="input-wrapper">
+      <label>Date de naissance</label>
+      <input type="date" v-model="form.birthdate" />
+    </div>
 
-    <label>Pays</label>
-    <input type="text" v-model="form.country"/>
+    <div class="input-wrapper">
+      <label>Ville</label>
+      <input type="text" v-model="form.city" />
+    </div>
 
-    <label>Photo</label>
-    <input type="text" v-model="form.photo"/>
+    <div class="input-wrapper">
+      <label>Pays</label>
+      <input type="text" v-model="form.country" />
+    </div>
 
-    <button @click.prevent="handleSubmit">{{ button.text }}</button>
+    <div class="input-wrapper">
+      <label>Photo</label>
+      <input type="text" v-model="form.photo" />
+    </div>
+    <button @click.prevent="handleSubmit">{{ button }}</button>
 
     <p v-if="error.value">{{ error }}</p>
   </form>
@@ -49,35 +83,47 @@ import { ref, defineProps } from 'vue'
 const props = defineProps({
   title: String,
   button: String,
+  user: Object,
   handleFunction: Function
 })
 
 const form = ref({
-  gender: "",
-  firstname: "",
-  lastname: "",
-  email: "",
-  password: "",
-  phone: "",
-  city: "",
-  country: "",
-  photo: "",
-  category: "",
-  birthdate: null,
-  isAdmin: false,
+  gender: props.user.gender,
+  firstname: props.user.firstname,
+  lastname: props.user.lastname,
+  email: props.user.email,
+  password: props.user.password,
+  phone: props.user.phone,
+  city: props.user.city,
+  country: props.user.country,
+  photo: props.user.photo,
+  category: props.user.category,
+  birthdate: props.user.birthdate,
+  isAdmin: props.user.isAdmin,
 })
+
+const genderOptions = [
+  { label: "M", value: "male" },
+  { label: "F", value: "female" },
+  { label: "Autre", value: "other" },
+]
+
+const categoryOptions = [
+  "Marketing",
+  "Technique",
+  "Client"
+]
 
 const error = ref('')
 
 function handleSubmit() {
   error.value = ''
+  const data = props.user
   for(const [key, value] of Object.entries(form.value)) {
-    if(!value.trim()) {
-      console.error(`Can't submit form, missing value for ${key}`)
-      error.value = "Veuillez remplir tous les champs"
-      break;
+    if(value) {
+      data[key] = value
     }
   }
-  return props.button.handle(form.value)
+  return props.handleFunction(data)
 }
 </script>

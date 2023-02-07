@@ -6,7 +6,7 @@
     </RouterLink>
 
     <div>
-      <RouterLink v-if="user.isAdmin" class="link-wrapper" to="/create-user">
+      <RouterLink v-if="user.isAdmin" class="link-wrapper" to="/users/create">
         <img class="icon create-user" src="@/assets/imgs/create-user.svg"/>
         <span class="link-text">Ajouter</span>
       </RouterLink>
