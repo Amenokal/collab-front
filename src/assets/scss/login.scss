@@ -22,7 +22,7 @@
   flex-direction: column;
   opacity: 0;
   transform: translateY(1em);
-  border-radius: 3px;
+  border-radius: 20px;
   animation: fadeIn .5s ease-out forwards;
   transition: .1s ease-out;
   border: 5px solid salmon;
@@ -120,24 +120,6 @@
         transform: scale(2) scaleX(.4);
       }
     }
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(.5em);
-  }
-  30% {
-    transform: translateY(.5m);
-    opacity: 0;
-  }
-  90% {
-    opacity: .5;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 

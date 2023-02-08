@@ -24,11 +24,10 @@
 </template>
 
 <script setup>
-/*  eslint-disable */
 import { ref } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useRouter } from 'vue-router';
-const { login } = useAuth()
+const { login } = await useAuth()
 const router = useRouter()
 
 const form = ref({
@@ -43,7 +42,6 @@ async function handleLogin() {
 
   // form check
   for(const value of Object.values(form.value)) {
-    console.log(!value.trim())
     if(!value.trim()) {
       return error.value = "Veuillez remplir tous les champs"
     }

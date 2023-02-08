@@ -16,6 +16,17 @@ h2 {
   font-weight: bolder;
 }
 
+a {
+  text-decoration: none;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
 /*
     -------------
     COLOR PALETTE
@@ -31,7 +42,8 @@ white: --------| #FFFFFF
 
 Gradients:
 orange:
-linear-gradient(140deg, rgb(250, 184, 114) 0%, rgb(255, 217, 142) 29%, rgb(217, 91, 77) 100%);
+background: rgb(250,184,114);
+background: linear-gradient(140deg, rgba(250,184,114,1) 0%, rgba(255,217,142,1) 29%, rgb(217, 91, 77) 100%);
 
 light-blue:
 background: rgb(127,201,213);

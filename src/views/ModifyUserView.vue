@@ -14,32 +14,17 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { defineProps } from 'vue'
 import NavBar from '@/components/NavBar.vue'
 import UserForm from '@/components/UserForm.vue'
-import Api from '@/composables/useApi'
+import { useUser } from '@/composables/useUser'
+const { getUser, updateUser } = await useUser()
 
-const props = defineProps({
-  userId: String
-})
-
-const user = ref(null)
-
-try {
-  const { data } = await Api.get('/user/' + props.userId)
-  user.value = data
-}
-catch(err) {
-  console.error(err)
-}
+const props = defineProps({userId: String})
+const user = getUser(props.userId)
+console.log(user)
 
 async function handleUpdateUser(form) {
-  try {
-    const res = await Api.put('/user/' + props.userId, form)
-    console.info(res)
-  }
-  catch(err) {
-    console.error(err)
-  }
+  await updateUser(props.userId, form)
 }
 </script>

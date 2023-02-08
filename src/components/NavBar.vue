@@ -25,17 +25,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useAuth } from '@/composables/useAuth'
 import { useRouter } from 'vue-router'
-import { useJWT } from '@/composables/useJWT'
+import { useAuth } from '@/composables/useAuth'
+
 const router = useRouter()
-const { decodeToken } = useJWT()
-const user = ref(decodeToken())
+const { user, logout } = await useAuth()
 
 async function handleLogout() {
   try { 
-    const { logout } = useAuth()
     await logout()
     router.push('/')
   }

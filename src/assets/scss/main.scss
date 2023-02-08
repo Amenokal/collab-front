@@ -20,3 +20,43 @@
   justify-content: center;
   height: 100vh;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(.5em);
+  }
+  30% {
+    transform: translateY(.5m);
+    opacity: 0;
+  }
+  90% {
+    opacity: .5;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes hovered {
+  from {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes hoveredLarge {
+  from {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1);
+  }
+}

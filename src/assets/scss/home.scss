@@ -10,11 +10,126 @@
     overflow-x: hidden;
     width: 100%;
 
+    .content {
+      display: flex;
+      width: 100%;
+
+      & > section {
+        width: 50%;
+        padding: 0 2rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        .emotes {
+          position: absolute;
+          right: 10%;
+          top: 23%;
+          height: 40%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          div {
+            margin: .5rem 0;
+            cursor: pointer;
+            width: 2rem;
+            height: 4rem;
+            padding: .5rem;
+            border-radius: 100%;
+            border: 3px solid rgb(250,184,114);
+            background: white;
+            transition: .1s ease-out;
+            position: relative;
+
+            span {
+              font-size: 1.5rem;
+            }
+
+            &:hover {
+              animation: hoveredLarge .5s
+            }
+          }
+        }
+      }
+
+      .user-card.unique {
+        min-width: 300px;
+        width: 60%;
+
+        .btn-content {
+          display: none;
+        }
+
+        &.anim-out {
+        animation: cardFlipOut .3s ease-in forwards;
+        }
+        &.anim-in {
+          animation: cardFlipIn .3s ease-in forwards;
+        }
+
+        &:hover {
+          transform: none;
+          filter: none;
+        }
+      }
+
+      button {
+        margin: 0;
+      }
+
+      .message-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: .5rem;
+      }
+
+      .message {
+        padding: .5rem 1rem;
+        background-color: white;
+        border-radius: 20px;
+        margin-right: .5rem;
+
+        span {
+          font-style: italic;
+          margin-right: .5rem;
+        }
+      }
+
+      .message-photo {
+        height: 3rem;
+        border: 3px solid white;
+      }
+
+      .message-emote {
+        margin-left: .5rem;
+        padding: .5rem;
+        height: 1.5rem;
+        width: 2rem;
+        background-color: white;
+        border-radius: 20px;
+      }
+      
+      .message-delete {
+        font-weight: 600;
+        padding: .5rem;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-left: .5rem;
+        border-radius: 20px;
+        color: white;
+        background: rgb(250,184,114);
+        background: linear-gradient(130deg, rgba(250,184,114,1) 0%, rgba(255,217,142,1) 29%, rgb(217, 91, 77) 100%);
+        cursor: pointer;
+      }
+    }
+
     .banner {
       box-sizing: border-box;
       background-color: white;
       box-shadow: rgba(23, 25, 47, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-      // border: 5px solid salmon;
       border-radius: 20px;
       margin: 1rem 3rem;
       padding: 1rem;
@@ -71,6 +186,29 @@
   }
 }
 
+@keyframes cardFlipOut {
+  from {
+    transform: rotateY(0);
+  }
+  40% {
+    transform: rotateY(20deg);
+  }
+  to {
+    transform: rotateY(90deg);
+  }
+}
+@keyframes cardFlipIn {
+  from {
+    transform: rotateY(90deg);
+  }
+  60% {
+    transform: rotateY(20deg);
+  }
+  to {
+    transform: rotateY(0);
+  }
+}
+
 .cards-move,
 .cards-enter-active {
   transition: all 0.3s ease;
@@ -86,4 +224,17 @@
 
 .cards-leave-active {
   position: absolute;
+}
+
+
+.messages-move,
+.messages-leave-active,
+.messages-enter-active {
+  transition: all 0.3s ease;
+}
+
+.messages-enter-from,
+.messages-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
 }

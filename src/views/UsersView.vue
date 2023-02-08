@@ -26,28 +26,18 @@
 import { ref, computed } from 'vue'
 import NavBar from '@/components/NavBar.vue'
 import UserCard from '@/components/UserCard.vue'
-import Api from '@/composables/useApi'
+import { useUser } from '@/composables/useUser'
 
-const users = ref([])
+const { users } = await useUser()
 
 const filter = ref("")
 
 const userList = computed(() => {
-  return users.value.filter((user) => {
-    return user.firstname.toLowerCase().includes(filter.value.toLowerCase()) ||
-           user.lastname.toLowerCase().includes(filter.value.toLowerCase())
-  })
+  const filtr = filter.value.toLowerCase()
+  return filtr
+    ? users.value.filter((user) => {
+      user.firstname.toLowerCase().includes(filtr) || user.lastname.toLowerCase().includes(filtr)
+    })
+    : users.value
 })
-
-try {
-  const { data } = await Api.get('/user')
-  users.value = data.map((user) => ({
-    ...user,
-    birthdate: new Date(user.birthdate).toLocaleString('default', { day: 'numeric', month: 'long' }),
-    age: new Date().getFullYear() - new Date(user.birthdate).getFullYear()
-  }))
-}
-catch(err) {
-  console.error(err)
-}
 </script>

@@ -19,14 +19,17 @@ const useApi = () => {
     const instance = createInstance()
     return await instance.get(url)
   }
+  
   async function post(url, body) {
     const instance = createInstance()
     return await instance.post(url, body)
   }
+  
   async function put(url, body) {
     const instance = createInstance()
     return await instance.put(url, body)
   }
+  
   async function del(url) {
     const instance = createInstance()
     return await instance.delete(url)
