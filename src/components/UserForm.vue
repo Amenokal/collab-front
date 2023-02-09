@@ -83,7 +83,6 @@
         </select>
       </div>
 
-      {{ form.birthdate }}
       <div class="form-buttons">
         <button @click.prevent="$router.back()">Retour</button>
         <button @click.prevent="handleSubmit">{{ button }}</button>

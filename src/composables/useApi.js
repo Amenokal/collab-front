@@ -1,14 +1,13 @@
 import axios from 'axios'
+import { useStorage } from './useStorage'
 
-export const storageKey = "jwt"
-
-function createInstance() {
-  let options = {
+async function createInstance() {
+  const options = {
     baseURL:  'http://localhost:3000'
   }
   
-  const token = localStorage.getItem(storageKey)
-  if(token) options.headers = { Authorization: token }
+  const { JWT } = useStorage()
+  if(JWT.value) options.headers = { Authorization: JWT.value }
 
   return axios.create(options)
 }
@@ -16,22 +15,22 @@ function createInstance() {
 const useApi = () => {
 
   async function get(url) {
-    const instance = createInstance()
+    const instance = await createInstance()
     return await instance.get(url)
   }
-  
+
   async function post(url, body) {
-    const instance = createInstance()
+    const instance = await createInstance()
     return await instance.post(url, body)
   }
-  
+
   async function put(url, body) {
-    const instance = createInstance()
+    const instance = await createInstance()
     return await instance.put(url, body)
   }
-  
+
   async function del(url) {
-    const instance = createInstance()
+    const instance = await createInstance()
     return await instance.delete(url)
   }
 

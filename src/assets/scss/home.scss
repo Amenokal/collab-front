@@ -2,13 +2,101 @@
   height: 100%;
   width: 100vw;
   background: linear-gradient(180deg, rgb(33, 38, 60) 0%, rgb(55, 62, 77) 100%);
-  display: grid;
-  grid-template-columns: 10rem 1fr;
+  display: flex;
 
   main {
     overflow-y: scroll;
-    overflow-x: hidden;
     width: 100%;
+
+    .banner {
+      box-sizing: border-box;
+      background-color: white;
+      box-shadow: rgba(23, 25, 47, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      border-radius: 20px;
+      margin: 1rem 3rem;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      input {
+        margin: 0 1rem 0 .5rem;
+        padding: .5rem;
+        background: whitesmoke;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset rgba(232, 232, 232, 0.465) 0px 0px 5px 5px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    img {
+      border-radius: 100%
+    }
+
+    button {
+      font-weight: bold;
+      border: none;
+      background: rgb(250,184,114);
+      background: linear-gradient(140deg, rgba(250,184,114,1) 0%, rgba(255,217,142,1) 29%, rgba(250,128,114,1) 100%); 
+      color: white;
+      padding: .5rem 1rem;
+      transition: .1s ease-out;
+      margin-top: 1rem;
+      box-sizing: border-box;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .filter-container {
+      display: flex;
+      align-items: center;
+
+      .input-wrapper {
+        display: flex;
+        align-items: center;
+        margin-right: .5rem;
+      }
+
+      label {
+        margin-right: .5rem;
+      }
+
+      .checkbox {
+        display: block;
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 100%;
+        color: white;
+        cursor: pointer;
+
+        &.marketing {
+          background: linear-gradient(120deg, rgba(69,38,68,1) 0%, rgba(122,101,162,1) 22%, rgba(64,85,116,1) 53%, rgba(55,74,119,1) 87%, rgba(45,48,79,1) 100%);
+        }
+        &.technique {
+          background: linear-gradient(120deg, rgba(127,201,213,1) 0%, rgba(185,232,251,1) 32%, rgba(117,168,198,1) 58%, rgba(153,198,204,1) 81%, rgba(129,184,173,1) 100%); 
+        }
+        &.client {
+          background: linear-gradient(140deg, rgba(250,184,114,1) 0%, rgba(255,217,142,1) 29%, rgb(217, 91, 77) 100%);
+        }
+        &.unselected {
+          background: whitesmoke;
+          color: lightgray;
+        }
+      }
+
+      .checkbox-hidden {
+        display: none;
+      }
+
+    }
 
     .content {
       display: flex;
@@ -26,7 +114,7 @@
         .emotes {
           position: absolute;
           right: 10%;
-          top: 23%;
+          top: 6rem;
           height: 40%;
           display: flex;
           flex-direction: column;
@@ -36,7 +124,6 @@
             margin: .5rem 0;
             cursor: pointer;
             width: 2rem;
-            height: 4rem;
             padding: .5rem;
             border-radius: 100%;
             border: 3px solid rgb(250,184,114);
@@ -48,8 +135,25 @@
               font-size: 1.5rem;
             }
 
+            &.reload-icon {
+              height: 2rem;
+
+              img {
+                padding: .2rem;
+                border-radius: 0;
+              }
+            }
+
             &:hover {
               animation: hoveredLarge .5s
+            }
+
+            &.persist {
+              animation: hideOutPersist .8s ease-out forwards;
+            }
+
+            &.hide {
+              animation: hideOut .3s ease-out forwards;
             }
           }
         }
@@ -64,7 +168,7 @@
         }
 
         &.anim-out {
-        animation: cardFlipOut .3s ease-in forwards;
+          animation: cardFlipOut .3s ease-in forwards;
         }
         &.anim-in {
           animation: cardFlipIn .3s ease-in forwards;
@@ -74,10 +178,6 @@
           transform: none;
           filter: none;
         }
-      }
-
-      button {
-        margin: 0;
       }
 
       .message-wrapper {
@@ -125,53 +225,6 @@
         cursor: pointer;
       }
     }
-
-    .banner {
-      box-sizing: border-box;
-      background-color: white;
-      box-shadow: rgba(23, 25, 47, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-      border-radius: 20px;
-      margin: 1rem 3rem;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      input {
-        margin: 0 1rem 0 .5rem;
-        padding: .5rem;
-        background: whitesmoke;
-        border: none;
-        border-radius: 3px;
-
-        &:focus {
-          outline: none;
-        }
-      }
-    }
-
-    img {
-      border: 8px solid salmon;
-      border-radius: 100%;
-    }
-
-    button {
-      font-weight: bold;
-      border: none;
-      background: rgb(250,184,114);
-      background: linear-gradient(140deg, rgba(250,184,114,1) 0%, rgba(255,217,142,1) 29%, rgba(250,128,114,1) 100%); 
-      color: white;
-      padding: .5rem 1rem;
-      transition: .1s ease-out;
-      margin-top: 1rem;
-      box-sizing: border-box;
-      border-radius: 3px;
-      cursor: pointer;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
   }
 
   .user-list-grid {
@@ -184,57 +237,4 @@
   .grid-item {
     padding: 0 1em;
   }
-}
-
-@keyframes cardFlipOut {
-  from {
-    transform: rotateY(0);
-  }
-  40% {
-    transform: rotateY(20deg);
-  }
-  to {
-    transform: rotateY(90deg);
-  }
-}
-@keyframes cardFlipIn {
-  from {
-    transform: rotateY(90deg);
-  }
-  60% {
-    transform: rotateY(20deg);
-  }
-  to {
-    transform: rotateY(0);
-  }
-}
-
-.cards-move,
-.cards-enter-active {
-  transition: all 0.3s ease;
-}
-.cards-leave-active {
-  transition: all 0s ease;
-}
-.cards-enter-from,
-.cards-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.cards-leave-active {
-  position: absolute;
-}
-
-
-.messages-move,
-.messages-leave-active,
-.messages-enter-active {
-  transition: all 0.3s ease;
-}
-
-.messages-enter-from,
-.messages-leave-to {
-  opacity: 0;
-  transform: translateX(10px);
 }

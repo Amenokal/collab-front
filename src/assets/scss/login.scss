@@ -79,7 +79,8 @@
       box-sizing: border-box;
       letter-spacing: 0;
       border-radius: 3px;
-  
+      box-shadow: inset rgba(232, 232, 232, 0.465) 0px 0px 5px 5px;
+
       &:focus {
         outline: none;
       }

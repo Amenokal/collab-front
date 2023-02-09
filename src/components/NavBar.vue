@@ -1,6 +1,7 @@
 <template>
   <nav class="navbar">
     <RouterLink to="/home">
+      <h3>ZEN MONKEY</h3>
       <img class="logo" src="@/assets/imgs/logo.png"/>
       <span v-if="user.isAdmin">ADMIN</span>
     </RouterLink>

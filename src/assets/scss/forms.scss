@@ -11,7 +11,7 @@
     animation: fadeIn .5s ease-out forwards;
 
     .form-title {
-      height: 100px;
+      height: 4rem;
       width: 100%;
       display: flex;
       align-items: center;
@@ -45,6 +45,7 @@
         background-color: whitesmoke;
         border: none;
         padding: .25rem .5rem;
+        box-shadow: inset rgba(232, 232, 232, 0.465) 0px 0px 5px 5px;
 
         &:focus {
           outline: none;

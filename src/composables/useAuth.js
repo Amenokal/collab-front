@@ -1,26 +1,31 @@
 import { computed } from 'vue'
+import jwt_decode from "jwt-decode"
+
 import Api from '@/composables/useApi'
-import { useJWT } from './useJWT'
+import { useStorage } from './useStorage'
 import { useUser } from './useUser'
 import { useMessage } from './useMessage'
 
-export const useAuth = async () => {
-  const { decodeToken, setToken, removeToken } = useJWT()
-  
-  const user = computed(() => decodeToken())
+export const useAuth = async () => {  
+  const user = computed(() => {
+    const { JWT } = useStorage()
+    return jwt_decode(JWT.value)
+  })
   
   async function login(credentials) {
     const { resetUserData } = await useUser()
+    resetUserData()
     const { resetMessageData } = await useMessage()
     resetMessageData()
-    resetUserData()
 
-    const { data: token } = await Api.post('/login', credentials)
-    setToken(token)
+    const { setJWT } = useStorage()
+    const { data: jwt } = await Api.post('/login', credentials)
+    setJWT(jwt)
   }
 
   async function logout() {
-    removeToken()
+    const { removeJWT } = useStorage()
+    removeJWT()
   }
 
   return {

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuth } from '@/composables/useAuth'
+import { useStorage } from '@/composables/useStorage'
 import LoginPage from "../views/LoginView.vue"
 import HomePage from "../views/HomeView.vue"
 import UsersView from '../views/UsersView.vue'
@@ -47,9 +47,9 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach(async (to) => {
-  const { user } = await useAuth()
-  if(!user.value && to.path !== "/") router.push('/')
+router.beforeEach((to) => {
+  const { JWT } = useStorage()
+  if(!JWT.value && to.path !== "/") router.push('/')
 })
 
 export default router

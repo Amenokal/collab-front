@@ -1,22 +1,25 @@
 import { ref } from "vue"
 import Api from "./useApi"
-
-async function initUsers() {
-  try {
-    const { data } = await Api.get('/user')
-    users.value = data
-  }
-  catch(err) {
-    console.log(err)
-  }
-  _fetched.value = true
-}
+import { useAuth } from "./useAuth"
 
 const _fetched = ref(false)
 const users = ref([])
 const randomUser = ref(null)
 
+async function initUsers() {
+  try {
+    const { data } = await Api.get('/user')
+    users.value = data
+    _fetched.value = true
+  }
+  catch(err) {
+    console.log(err)
+  }
+}
+
 export const useUser = async () => {
+
+  const { user: loggedUser } = await useAuth()
 
   if(!_fetched.value) {
     await initUsers()
@@ -29,7 +32,9 @@ export const useUser = async () => {
 
   function getRandomUser() {
     const randomIndex = Math.floor(Math.random() * users.value.length)
-    randomUser.value = users.value.at(randomIndex)
+    randomUser.value = users.value
+      .filter((user) => user.id !== loggedUser.id)
+      .at(randomIndex)
   }
 
   async function createUser(data) {

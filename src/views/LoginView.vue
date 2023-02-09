@@ -54,8 +54,6 @@ async function handleLogin() {
   }
   catch (err) {
     error.value = "Identifiants invalides"
-    console.log(error.value)
-    console.error(err)
   }
 }
 </script>

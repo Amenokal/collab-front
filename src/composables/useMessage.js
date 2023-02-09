@@ -8,11 +8,11 @@ async function initMessages() {
   try {
     const { data } = await Api.get('/message')
     messages.value = data
+    _fetched.value = true
   }
   catch(err) {
     console.log(err)
   }
-  _fetched.value = true
 }
 
 export const useMessage = async () => {
