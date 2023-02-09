@@ -19,7 +19,7 @@
             <div @click="handleSendMsg($event)"><span>✌️</span></div>
             <div @click="handleSendMsg($event)"><span>🤟</span></div>
             <div @click="handleSendMsg($event)"><span>🖖</span></div>
-            <div @click="handleGetRandomUser" class="reload-icon"><span><img src="@/assets/imgs/reload.svg" /></span></div>
+            <div @click="handleGetRandomUser" class="reload-icon"><span><img src="@/assets/imgs/refresh.svg" /></span></div>
           </div>
         </section>
 
@@ -32,8 +32,8 @@
 
           <TransitionGroup name="messages">
             <div v-for="msg in messages" :key="msg.id" class="message-wrapper">
-              <p class="message"><span>{{ msgTime(msg.createdAt) }}</span></p>
-              <img class="message-photo" :src="msg.senderPhoto" />
+              <p class="message"><span>{{ msgTime(msg) }}</span></p>
+              <img class="message-photo" :src="msgSender(msg).photo" />
               <p class="message-emote" v-html="msg.content"></p>
               <p class="message-delete" @click="handleDeleteMsg(msg.id)">X</p>
             </div>
@@ -53,14 +53,18 @@ import { useMessage } from '@/composables/useMessage'
 import { useUser } from '@/composables/useUser'
 
 const { user: loggedUser } = await useAuth()
-const { randomUser, getRandomUser } = await useUser()
+const { randomUser, getRandomUser, getUser } = await useUser()
 const { messages, sendMessage, deleteMessage } = await useMessage()
 
-const msgTime = computed(() => (time) => {
-  const date = new Date(time)
+const msgTime = computed(() => (msg) => {
+  const date = new Date(msg.createdAt)
   return date.getHours().toString().padStart(2, '0') + ':'
     + date.getMinutes().toString().padStart(2, '0') + ':'
     + date.getSeconds().toString().padStart(2, '0')
+})
+
+const msgSender = computed(() => (msg) => {
+  return getUser(msg.senderId)
 })
 
 async function handleGetRandomUser() {
@@ -96,6 +100,7 @@ async function handleSendMsg(e) {
     receiverId: randomUser.value.id,
     content: e.target.innerHTML
   }
+
   await sendMessage(msg)
   handleGetRandomUser()
 }

@@ -5,4 +5,4 @@ import '@/assets/scss/main.scss'
 
 createApp(App)
 .use(router)
-.mount('#app');
+.mount('#app')

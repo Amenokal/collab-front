@@ -13,14 +13,21 @@ export const useAuth = async () => {
   })
   
   async function login(credentials) {
+    const { setJWT } = useStorage()
+    const { data: jwt } = await Api.post('/login', credentials)
+    setJWT(jwt)
+
     const { resetUserData } = await useUser()
     resetUserData()
     const { resetMessageData } = await useMessage()
     resetMessageData()
-
+  }
+  
+  async function refresh() {
     const { setJWT } = useStorage()
-    const { data: jwt } = await Api.post('/login', credentials)
+    const { data: jwt } = await Api.post('/refresh', { userId: user.value.userId })
     setJWT(jwt)
+    return jwt
   }
 
   async function logout() {
@@ -29,6 +36,6 @@ export const useAuth = async () => {
   }
 
   return {
-    user, login, logout
+    user, login, refresh, logout
   }
 }

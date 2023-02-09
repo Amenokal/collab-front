@@ -11,7 +11,7 @@ async function initMessages() {
     _fetched.value = true
   }
   catch(err) {
-    console.log(err)
+    console.error(err.response)
   }
 }
 

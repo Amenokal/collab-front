@@ -155,8 +155,7 @@ function handleSubmit() {
       data[key] = value
     }
     else {
-      console.warn(key, value)
-      console.error('!')
+      console.warn('Uncomplete form:', key, value)
       error.value = 'Veuillez remplir tous les champs'
       break;
     }

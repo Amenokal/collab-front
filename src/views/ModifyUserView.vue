@@ -22,7 +22,6 @@ const { getUser, updateUser } = await useUser()
 
 const props = defineProps({userId: String})
 const user = getUser(props.userId)
-console.log(user)
 
 async function handleUpdateUser(form) {
   await updateUser(props.userId, form)

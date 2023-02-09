@@ -13,7 +13,7 @@ async function initUsers() {
     _fetched.value = true
   }
   catch(err) {
-    console.log(err)
+    console.error(err.response)
   }
 }
 
@@ -31,7 +31,7 @@ export const useUser = async () => {
   }
 
   function getRandomUser() {
-    const randomIndex = Math.floor(Math.random() * users.value.length)
+    const randomIndex = Math.floor(Math.random() * users.value.length - 1)
     randomUser.value = users.value
       .filter((user) => user.id !== loggedUser.id)
       .at(randomIndex)

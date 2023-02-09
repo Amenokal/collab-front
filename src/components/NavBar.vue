@@ -33,12 +33,7 @@ const router = useRouter()
 const { user, logout } = await useAuth()
 
 async function handleLogout() {
-  try { 
-    await logout()
-    router.push('/')
-  }
-  catch(err) {
-    console.error(err)
-  }
+  await logout()
+  router.push('/')
 }
 </script>

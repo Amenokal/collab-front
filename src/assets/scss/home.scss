@@ -95,7 +95,6 @@
       .checkbox-hidden {
         display: none;
       }
-
     }
 
     .content {
@@ -133,12 +132,15 @@
 
             span {
               font-size: 1.5rem;
+              display: flex;
+              justify-content: center;
             }
 
             &.reload-icon {
               height: 2rem;
-
+              
               img {
+                height: 1.5rem;
                 padding: .2rem;
                 border-radius: 0;
               }
