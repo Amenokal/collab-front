@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Cantata+One&family=Quicksand:wght@300;400;500;600&display=swap');
+
+* {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 2.3rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: bolder;
+}
+
+a {
+  text-decoration: none;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/*
+    -------------
+    COLOR PALETTE
+    -------------
+
+Simple:
+dark blue: ----| #21263C
+gray-blue: ----| #373E4D
+pale violet: --| #DEBFD9
+red: ----------| #E04644
+yellow: -------| #FFD73C
+white: --------| #FFFFFF
+
+Gradients:
+orange:
+background: rgb(250,184,114);
+background: linear-gradient(140deg, rgba(250,184,114,1) 0%, rgba(255,217,142,1) 29%, rgb(217, 91, 77) 100%);
+
+light-blue:
+background: rgb(127,201,213);
+background: linear-gradient(120deg, rgba(127,201,213,1) 0%, rgba(185,232,251,1) 32%, rgba(117,168,198,1) 58%, rgba(153,198,204,1) 81%, rgba(129,184,173,1) 100%); 
+
+dark-blue:
+background: rgb(69,38,68);
+background: linear-gradient(120deg, rgba(69,38,68,1) 0%, rgba(122,101,162,1) 22%, rgba(64,85,116,1) 53%, rgba(55,74,119,1) 87%, rgba(45,48,79,1) 100%);
+*/
