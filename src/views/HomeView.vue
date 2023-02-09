@@ -9,7 +9,7 @@
 
       <div class="content">
         <section>
-          <div class="banner"><h2>Dites bonjour !</h2></div>
+          <div class="banner"><h2>{{randomSayWelcomeString()}}</h2></div>
 
           <UserCard :user="randomUser" class="unique"/>
 
@@ -51,10 +51,32 @@ import UserCard from '@/components/UserCard.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useMessage } from '@/composables/useMessage'
 import { useUser } from '@/composables/useUser'
-
+import { ref } from "vue";
 const { user: loggedUser } = await useAuth()
 const { randomUser, getRandomUser } = await useUser()
 const { messages, sendMessage, deleteMessage } = await useMessage()
+
+
+const phrase = ref([
+  `DIRE BONJOUR A QUELQU'UN D'AUTRE`,
+  `SALUER QUELQU'UN D'AUTRE`,
+  `ADRESSER UN SALUT A QUELQU'UN D'AUTRE`,
+  `EXPRIMER DES SALUTATIONS A QUELQU'UN D'AUTRE`,
+  `FAIRE COUCOU A QUELQU'UN D'AUTRE`,
+  `FAIRE UN SIGNE A QUELQU'UN D'AUTRE`,
+]);
+
+const randomSayWelcomeString = () => {
+  let previousIndex = -1;
+  if (phrase.value.length === 0) return '';
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * phrase.value.length);
+    } while (randomIndex === previousIndex);
+
+    previousIndex = randomIndex;
+    return phrase.value[randomIndex];
+}
 
 const msgTime = computed(() => (time) => {
   const date = new Date(time)
@@ -67,6 +89,7 @@ async function handleGetRandomUser() {
   const card = document.querySelector('.unique')
   card.classList.remove('anim-in')
   card.classList.add('anim-out')
+  randomSayWelcomeString();
 
   setTimeout(async () => {
     getRandomUser()
